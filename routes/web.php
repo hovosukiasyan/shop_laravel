@@ -23,3 +23,10 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/profile', 'UserController@index');
 Route::patch('/profile', 'UserController@update');
+
+//Admin Part
+
+Route::group(['middleware' => 'App\Http\Middleware\AdminMiddleware'], function()
+{
+    Route::get('/admin', 'AdminController@index');
+});
