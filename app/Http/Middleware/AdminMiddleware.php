@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use Closure;
+use Illuminate\Support\Facades\Auth;
 
 class AdminMiddleware
 {
@@ -15,10 +16,9 @@ class AdminMiddleware
      */
     public function handle($request, Closure $next)
     {
-        if ($request->user() && $request->user()->type == 'admin')
-            {
-            return new Response(view('index')->with('role', 'ADMIN'));
-            }
-            return $next($request);
+        if (Auth::check() && Auth::user()->isAdmin()) {
+           return $next($request);
         }
+        return redirect('/home');
     }
+}

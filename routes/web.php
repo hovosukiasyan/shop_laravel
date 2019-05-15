@@ -26,7 +26,18 @@ Route::patch('/profile', 'UserController@update');
 
 //Admin Part
 
-Route::group(['middleware' => 'App\Http\Middleware\AdminMiddleware'], function()
-{
+Route::group(['middleware' => ['auth', 'admin']], function(){
     Route::get('/admin', 'AdminController@index');
+    Route::get('/profile', 'AdminController@profile');
+
+    //Products
+    Route::get('/product/create', 'ProductController@create');
+    Route::post('/product/', 'ProductController@store');
+
+    Route::get('/products','ProductController@show');
+    Route::get('/my-posts/edit/{post}','ProductController@edit');
+    Route::patch('/post/{post}','ProductController@update');
+    Route::delete('/post/{post}','ProductController@destroy');
+
+
 });
