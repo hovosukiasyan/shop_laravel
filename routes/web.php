@@ -32,12 +32,18 @@ Route::group(['middleware' => ['auth', 'admin']], function(){
 
     //Products
     Route::get('/product/create', 'ProductController@create');
-    Route::post('/product/', 'ProductController@store');
 
-    Route::get('/products','ProductController@show');
-    Route::get('/my-posts/edit/{post}','ProductController@edit');
-    Route::patch('/post/{post}','ProductController@update');
-    Route::delete('/post/{post}','ProductController@destroy');
+    Route::post('/product/', 'ProductController@store');
+    
+    Route::get('/products','ProductController@allProducts');
+    
+    Route::get('/products/edit/{product}','ProductController@edit');
+    
+    Route::get('/products/show/{product}','ProductController@show');
+    
+    Route::patch('/products/{product}','ProductController@update');
+    
+    Route::delete('/products/{product}','ProductController@destroy');
 
 
 });

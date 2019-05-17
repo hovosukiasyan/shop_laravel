@@ -38,14 +38,21 @@ class ProductController extends Controller
 
         $product = Product::create($inputs);
 
-        return redirect('/product/create');
+        return redirect('/products/');
     }
 
-    public function show(Product $product)
+    public function allProducts(Product $product)
     {
         $products = Product::all();
         return view('admin.products',[
             'products' => $products,
+        ]);
+    }
+
+    public function show(Product $product)
+    {
+        return view('admin.show',[
+            'product' => $product,
         ]);
     }
 
@@ -62,22 +69,8 @@ class ProductController extends Controller
 
     public function destroy(Product $product)
     {
-        $product = Post::findOrFail($product->id);
+        $product = Product::findOrFail($product->id);
         $product->delete();
         return redirect('/products');
     }
 }
-
-
-
-
-
-
-        // $checked = CategoryPosts::where(['post_id', $post->id]);
-        // $categories = Post::find($post->id);
-        // $selected_categories = $categories->categories();
-        // $categories = CategoryPosts::all();
-        // $categories = $model->categories();   // returns what you defined it to return
-        // $model->categories()->where(['post_id', $post->id])->get();
-
-        // $model->categories;   // loaded relationship via dynamic property

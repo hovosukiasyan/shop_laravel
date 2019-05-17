@@ -38,20 +38,25 @@
             </div>
         </div>
 
-        <div class="form-group row">
-            <label for="picture" class="col-md-4 col-form-label text-md-right">{{ __('Post Picture') }}</label>
-
-            <div class="col-md-6 picture_upload" class="form-group{{ $errors->has('picture') ? ' has-error' : '' }}">
-                <input id="picture" type="file" class="form-control" name="picture" value="">
-                <img id="img" src="#" alt="photo" width="100" height="100" />
-        
-                @if ($errors->has('picture'))
-                    <span class="help-block">
-                        <strong>{{ $errors->first('picture') }}</strong>
-                    </span>
-                @endif
+        <div class="panel panel-info">
+            <div class="panel-heading">Laravel - Crop and upload an image with jQuery Croppie plugin using Ajax</div>
+            <div class="panel-body">
+              <div class="row">
+                <div class="col-md-4 text-center">
+                <div id="upload-demo"></div>
+                </div>
+                <div class="col-md-4" style="padding:5%;">
+                <strong>Choose image to crop:</strong>
+                <input type="file" id="image_file">
+                <button class="btn btn-primary btn-block upload-image" style="margin-top:2%">Upload Image</button>
+                <div class="alert alert-success" id="upload-success" style="display: none;margin-top:10px;"></div>
+                </div>
+                <div class="col-md-4">
+                <div id="preview-crop-image" style="background:#9d9d9d;width:300px;padding:50px 50px;height:300px;"></div>
+                </div>
+              </div>
             </div>
-        </div>
+          </div>
 
         <div class="form-group row mb-0">
             <div class="col-md-6 offset-md-4">
