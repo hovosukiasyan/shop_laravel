@@ -38,9 +38,7 @@
             </div>
         </div>
 
-        <div class="panel panel-info">
-            <div class="panel-heading">Laravel - Crop and upload an image with jQuery Croppie plugin using Ajax</div>
-            <div class="panel-body">
+        <div class="form-group ">
               <div class="row">
                 <div class="col-md-4 text-center">
                 <div id="upload-demo"></div>
@@ -55,7 +53,6 @@
                 <div id="preview-crop-image" style="background:#9d9d9d;width:300px;padding:50px 50px;height:300px;"></div>
                 </div>
               </div>
-            </div>
           </div>
 
         <div class="form-group row mb-0">
@@ -67,5 +64,6 @@
         </div>
         
     </form>
+
 </div>
 @endsection
