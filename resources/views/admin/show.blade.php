@@ -11,7 +11,7 @@
     </div>
 
     <div class="picture">
-        <img id="img" src="{{ asset('/uploads/files') . '/' .$product->picture }}" alt="photo" width="300" height="300" />
+        <img id="img" src="{{ asset('/uploads/products') . '/' .$product->picture }}" alt="photo" width="300" height="300" />
     </div>
 
     <div class="edit-in-show-page">

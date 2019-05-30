@@ -26,14 +26,16 @@ Route::patch('/profile', 'UserController@update');
 
 //Admin Part
 
-Route::group(['middleware' => ['auth', 'admin']], function(){
+Route::group(['middleware' => ['admin']], function(){
     Route::get('/admin', 'AdminController@index');
     Route::get('/profile', 'AdminController@profile');
 
     //Products
-    Route::get('/product/create', 'ProductController@create');
+    Route::get('/products/create', 'ProductController@create');
 
-    Route::post('/product/', 'ProductController@store');
+    Route::post('/products/', 'ProductController@store');
+
+    Route::post('/products/crop', 'ProductController@crop');
     
     Route::get('/products','ProductController@allProducts');
     

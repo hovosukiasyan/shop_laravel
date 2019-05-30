@@ -2,10 +2,7 @@
 
 @section('content')
     <div class="wrapper">
-        <h1 class="title">Edit Profile</h1>   
-        <?php
-        //    dd( $user); 
-        ?>
+        <h1 class="title">Edit Profile</h1>
         <form method="POST" action="/profile/" enctype="multipart/form-data">
 
             @method('PATCH')
@@ -16,7 +13,7 @@
 
                     <div class="col-md-6 picture_upload" class="form-group{{ $errors->has('picture') ? ' has-error' : '' }}">
                         <input id="picture" type="file" class="form-control" name="picture" value="">
-                        <img id="img" src="{{ asset('/uploads/files') . '/' .$user->picture }}" alt="photo" width="100" height="100" />
+                        <img id="img" src="{{ asset('/uploads/users') . '/' .$user->picture }}" alt="photo" width="100" height="100" />
                 
                         @if ($errors->has('picture'))
                             <span class="help-block">

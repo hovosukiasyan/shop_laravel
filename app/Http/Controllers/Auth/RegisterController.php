@@ -69,7 +69,7 @@ class RegisterController extends Controller
     {
         $fileName = 'null';
         if (Input::file('picture')->isValid()) {
-            $destinationPath = public_path('uploads/files');
+            $destinationPath = public_path('uploads/users');
             $extension = Input::file('picture')->getClientOriginalExtension();
             $fileName = uniqid().'.'.$extension;
             Input::file('picture')->move($destinationPath, $fileName);

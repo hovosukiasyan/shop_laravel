@@ -10,11 +10,6 @@
     <title>Shop</title>
 
     <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
-    <script src="{{ asset('js/main.js') }}" defer></script>
-    <script src="{{ asset('js/croppie.js') }}" defer></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.2/croppie.js"></script>    
 
     <!-- Bootstrap -->
 
@@ -66,7 +61,7 @@
                                 
                                 <a href='/profile' class="link_push_left">Profile</a>
                                 <a href='/products' class="link_push_left">Products</a>
-                                <a href='/product/create' class="link_push_left">Create Product</a>
+                                <a href='/products/create' class="link_push_left">Create Product</a>
                                 
                                 
                                 
@@ -97,5 +92,14 @@
             @yield('content')
         </main>
     </div>
+
+
+    
+       
+    <script src="{{ asset('js/jquery.js') }}" defer></script>
+    <script src="{{ asset('js/bootstrap.js') }}" defer></script>
+    <script src="{{ asset('js/croppie-lib.js') }}" defer></script>
+    <script src="{{ asset('js/croppie.js') }}" defer></script>
+    <script src="{{ asset('js/main.js') }}" defer></script>
 </body>
 </html>

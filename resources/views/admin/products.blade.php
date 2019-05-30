@@ -21,7 +21,7 @@
                         <tr>
                             <td><?= $product->title ?></td>
                             <td><?= $product->price ?>$</td>
-                            <td><img id="img" src="{{ asset('/uploads/files') . '/' .$product->picture }}" alt="photo" width="200" height="200" /></td>
+                            <td><img id="img" src="{{ asset('/uploads/products') . '/' .$product->picture }}" alt="photo" width="200" height="200" /></td>
                             <td class="edit-product-td"><a href="/products/edit/{{ $product->id }}" class="edit-product link-push-left">Edit Product</a></td>
                             <td class="show-product-td"><a href="/products/show/{{ $product->id }}" class="show-product link-push-left">Show Product</a></td>
                             <td class="delete-product">

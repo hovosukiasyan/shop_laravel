@@ -14,28 +14,31 @@ class ProductController extends Controller
         return view('admin.create');
     }
 
+    public function crop(Request $request)
+    {
+        $picture = $request->picture;
+        
+        list($type, $picture) = explode(';', $picture);
+        list(, $picture)      = explode(',', $picture);
+        $picture = base64_decode($picture);
+        $picture_name= time().'.png';
+        $path = public_path('uploads/products/'.$picture_name);
+        file_put_contents($path, $picture);
+
+        $request->session()->put('picture',$picture_name );
+    }
+
     public function store(Request $request)
     {
         $request->validate([
             'title' => ['required', 'min:1', 'max:25'],
             'price' => ['required', 'min:1', 'max:25'],
-            'picture' => ['required','mimes:jpeg,png,jpg,gif,svg','max:2048'],
         ]);
 
-        $inputs = $request->all();       
-        // dd($inputs);
+        $inputs = $request->all();
 
-        unset($inputs['picture']);
         unset($inputs['_token']);
-
-        if ($request->hasFile('picture')) {
-            $destinationPath = public_path('uploads\files ');
-            $url = $request->file('picture')->getClientOriginalExtension();
-            $filename = uniqid().'.'.$url;
-            $request->file('picture')->move($destinationPath, $filename);
-            $inputs['picture'] = $filename;
-        }
-
+        $inputs['picture'] = session('picture');
         $product = Product::create($inputs);
 
         return redirect('/products/');
@@ -53,6 +56,13 @@ class ProductController extends Controller
     {
         return view('admin.show',[
             'product' => $product,
+        ]);
+    }
+
+    public function edit(Product $product)
+    {
+        return view('admin.edit',[
+            'product' => $product
         ]);
     }
 

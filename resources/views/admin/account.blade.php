@@ -16,7 +16,7 @@
 
                     <div class="col-md-6 picture_upload" class="form-group{{ $errors->has('picture') ? ' has-error' : '' }}">
                         <input id="picture" type="file" class="form-control" name="picture" value="">
-                        <img id="img" src="{{ asset('/uploads/files') . '/' .$user->picture }}" alt="photo" width="100" height="100" />
+                        <img id="img" src="{{ asset('/uploads/users') . '/' .$user->picture }}" alt="photo" width="100" height="100" />
                 
                         @if ($errors->has('picture'))
                             <span class="help-block">
