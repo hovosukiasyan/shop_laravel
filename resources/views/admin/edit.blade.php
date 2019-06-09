@@ -4,7 +4,7 @@
 <div class="wrapper">
     <h1 class="title">Edit Product</h1>   
 
-    <form method="POST" action="/product/{{ $product->id }}">
+    <form method="POST" action="/products/{{ $product->id }}">
 
         @method('PATCH')
         @csrf
@@ -38,38 +38,42 @@
             @endif
         </div>
 
+        
         <div class="field">
-            <label for="picture" class="label" >{{ __('Product Picture') }}</label>
+            <label class="label"">Current Image</label>
+            <div class="control">
+                <img src="{{ asset('/uploads/products') . '/' .$product->picture }}" alt="product">
+            </div>
+        </div>
 
-            <div class="panel panel-info">
-                <div class="panel-heading">Upload, Update and Crop Image of Product</div>
-                <div class="panel-body">
-    
-                    <div class="row">
-                        <div class="col-md-4 text-center">
-                            <div id="upload-demo"></div>
-                            {{--  --}}
-                        </div>
-                        <div class="col-md-4" style="padding:5%;">
-                            <strong>Select image to crop:</strong>
-                            <input type="file" id="picture">                            
-                                Upload Image
-                            </button>
-                        </div>
-    
-                        <div class="col-md-4">
-                            <div id="preview-crop-image"
-                                style="background:#9d9d9d;width:300px;padding:50px 50px;height:300px;">
-                            </div>
-                        </div>
-                        @if ($errors->has('picture'))
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $errors->first('picture') }}</strong>
-                            </span>
-                        @endif
+        <div class="panel panel-info">
+            <div class="panel-heading">Upload and Update Product Image with Crop</div>
+            <div class="panel-body">
+
+                <div class="row">
+                    <div class="col-md-4 text-center">
+                        <div id="upload-demo"></div>
                     </div>
-    
+                    <div class="col-md-4" style="padding:5%;">
+                        <strong>Select image to crop:</strong>
+                        <input type="file" id="picture">
+
+                        <button class="btn btn-primary btn-block upload-image" style="margin-top:2%">
+                            Upload Image
+                        </button>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div id="preview-crop-image"
+                            style="background:#9d9d9d;width:300px;padding:50px 50px;height:300px;"></div>
+                    </div>
+                    @if ($errors->has('picture'))
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $errors->first('picture') }}</strong>
+                        </span>
+                    @endif
                 </div>
+
             </div>
         </div>
 
@@ -77,7 +81,7 @@
         <div class="field">
         
             <div class="control">
-                <button type="submit" class="button is-link">Update Post</button>
+                <button type="submit" class="button is-link">Update Product</button>
             </div>
         
         </div>

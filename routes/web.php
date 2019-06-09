@@ -19,16 +19,30 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-//User Part
 
-Route::get('/profile', 'UserController@index');
-Route::patch('/profile', 'UserController@update');
+Route::group(['middleware' => ['auth']], function()
+{
+    Route::get('/profile', 'UserController@index');
+    Route::patch('/profile', 'UserController@update');
+    
+    Route::get('/shop', 'ShopController@index');
+    Route::get('/cart', 'ShopController@cart');
+ 
+    Route::get('add-to-cart/{id}', 'ShopController@addToCart');
+
+	
+    Route::patch('update-cart', 'ShopController@update');
+ 
+    Route::delete('remove-from-cart', 'ShopController@remove');
+});
+
+
 
 //Admin Part
 
 Route::group(['middleware' => ['admin']], function(){
     Route::get('/admin', 'AdminController@index');
-    Route::get('/profile', 'AdminController@profile');
+    Route::get('/admin-profile', 'AdminController@profile');
 
     //Products
     Route::get('/products/create', 'ProductController@create');

@@ -20,14 +20,13 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
-    {{-- <link href="{{ asset('css/nunito.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/bulma.css') }}" rel="stylesheet"> --}}
+    <link href="{{ asset('css/shop.css') }}" rel="stylesheet">
 </head>
 <body>
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light navbar-laravel">
             <div class="container">
-                <a class="navbar-brand" href="{{ url('/') }}">
+                <a class="navbar-brand" href="{{ url('/shop') }}">
                     {{ config('app.name', 'Shop') }}
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
@@ -57,7 +56,6 @@
                                 
                                 
                                 <a href='/profile' class="link_push_left">Profile</a>
-                                
                                 
 
                                   <div class="dropdown">

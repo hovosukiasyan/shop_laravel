@@ -59,7 +59,7 @@
                             <li class="nav-item dropdown">
                                 
                                 
-                                <a href='/profile' class="link_push_left">Profile</a>
+                                <a href='/admin-profile' class="link_push_left">Profile</a>
                                 <a href='/products' class="link_push_left">Products</a>
                                 <a href='/products/create' class="link_push_left">Create Product</a>
                                 

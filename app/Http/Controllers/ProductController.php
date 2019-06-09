@@ -66,13 +66,22 @@ class ProductController extends Controller
         ]);
     }
 
-    public function update(Request $request, Post $post)
+    public function update(Request $request, Product $product)
     {
         $request->validate([
             'title' => ['required','string', 'max:255'],
-            'price' => ['required','string', 'max:255'],
-            'content'  => ['required','string', 'max:255'],
+            'price' => ['required','string', 'max:255']
         ]);
+
+        $inputs = $request->all();
+        unset($inputs['_token']);
+        if (session('picture')) {
+            $inputs['picture'] = session('picture');    
+        }else{
+            $inputs['picture'] = $product->picture;
+        }
+        
+        $product->update($inputs);
 
         return redirect()->back();
     }
