@@ -61,7 +61,9 @@
                                 
                                 <a href='/admin-profile' class="link_push_left">Profile</a>
                                 <a href='/products' class="link_push_left">Products</a>
-                                <a href='/products/create' class="link_push_left">Create Product</a>
+                                <a href='/phones' class="link_push_left">Phones</a>
+                                <a href='/notebooks' class="link_push_left">Notebooks</a>
+                                <a href='/tablets' class="link_push_left">Tablets</a>
                                 
                                 
                                 
@@ -96,10 +98,12 @@
 
     
        
-    <script src="{{ asset('js/jquery.js') }}" defer></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    {{-- <script src="{{ asset('js/jquery.js') }}" defer></script> --}}
     <script src="{{ asset('js/bootstrap.js') }}" defer></script>
     <script src="{{ asset('js/croppie-lib.js') }}" defer></script>
     <script src="{{ asset('js/croppie.js') }}" defer></script>
+    {{-- <script src="{{ asset('js/croppie-phone.js') }}" defer></script> --}}
     <script src="{{ asset('js/main.js') }}" defer></script>
 </body>
 </html>

@@ -11,7 +11,7 @@ class ProductController extends Controller
 {
     public function create()
     {
-        return view('admin.create');
+        return view('admin.product.create');
     }
 
     public function crop(Request $request)
@@ -25,7 +25,7 @@ class ProductController extends Controller
         $path = public_path('uploads/products/'.$picture_name);
         file_put_contents($path, $picture);
 
-        $request->session()->put('picture',$picture_name );
+        $request->session()->put('product_picture',$picture_name );
     }
 
     public function store(Request $request)
@@ -38,7 +38,7 @@ class ProductController extends Controller
         $inputs = $request->all();
 
         unset($inputs['_token']);
-        $inputs['picture'] = session('picture');
+        $inputs['picture'] = session('product_picture');
         $product = Product::create($inputs);
 
         return redirect('/products/');
@@ -47,21 +47,21 @@ class ProductController extends Controller
     public function allProducts(Product $product)
     {
         $products = Product::all();
-        return view('admin.products',[
+        return view('admin.product.products',[
             'products' => $products,
         ]);
     }
 
     public function show(Product $product)
     {
-        return view('admin.show',[
+        return view('admin.product.show',[
             'product' => $product,
         ]);
     }
 
     public function edit(Product $product)
     {
-        return view('admin.edit',[
+        return view('admin.product.edit',[
             'product' => $product
         ]);
     }
@@ -75,8 +75,8 @@ class ProductController extends Controller
 
         $inputs = $request->all();
         unset($inputs['_token']);
-        if (session('picture')) {
-            $inputs['picture'] = session('picture');    
+        if (session('product_picture')) {
+            $inputs['picture'] = session('product_picture');    
         }else{
             $inputs['picture'] = $product->picture;
         }

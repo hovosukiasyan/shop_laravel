@@ -4,6 +4,7 @@
 <div class="wrapper">
     <div class="product">
         <h1 class="title">All Products</h1>
+        <a href='/products/create' class="btn btn-success create-button">Create Product</a>
             <?php
                 $count = count($products);
             ?>

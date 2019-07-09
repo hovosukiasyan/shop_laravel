@@ -8,13 +8,12 @@
  
     <link rel="stylesheet" type="text/css" href="{{ asset('css/bootstrap.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('css/font-awesome.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('css/shop.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/shop.css') }}">    
  
-    
-    <script src="{{ asset('js/jquery.js') }}" defer></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="{{ asset('js/popper.js') }}" defer></script>
     <script src="{{ asset('js/bootstrap.js') }}" defer></script>
- 
 </head>
 <body>
  
@@ -111,6 +110,6 @@
 </div>
  
 @yield('scripts')
- 
+
 </body>
 </html>

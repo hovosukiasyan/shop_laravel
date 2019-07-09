@@ -1,0 +1,159 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+use App\Phone;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
+
+
+class PhoneController extends Controller
+{
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
+    {
+        $phones = Phone::all();
+        return view('admin.phone.phones',[
+            'phones' => $phones,
+        ]);
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        return view('admin.phone.create');
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+
+    public function crop(Request $request)
+    {
+        $picture = $request->picture;
+        
+        list($type, $picture) = explode(';', $picture);
+        list(, $picture)      = explode(',', $picture);
+        $picture = base64_decode($picture);
+        $picture_name= time().'.png';
+        $path = public_path('/uploads/phones/'.$picture_name);
+        file_put_contents($path, $picture);
+
+        $request->session()->put('phone_picture',$picture_name );
+    }
+
+    public function store(Request $request)
+    {
+        $request->validate([
+            'title' => ['required', 'string'],
+            'price' => ['required','integer'],
+            'launch_status' => ['required', 'integer'],
+            'screen_size' => ['required', 'regex:/^\d+(\.\d{1,2})?$/'],
+            'screen_resolution' => ['required', 'string'],
+            'ram' => ['required', 'integer'],
+            'memory' => ['required', 'integer'],
+            'main_camera' => ['required', 'string'],
+            'front_camera' => ['required', 'string'],
+            'battery' => ['required', 'integer'],
+            'sim_card_quantity' => ['required', 'integer'],
+            'os' => ['required','string'],
+        ]);
+
+        $inputs = $request->all();
+
+        unset($inputs['_token']);
+        $inputs['picture'] = session('phone_picture');
+        // dd($inputs);
+        $phone = Phone::create($inputs);
+
+        return redirect('/phones/');
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show(Phone $phone)
+    {
+        return view('admin.phone.show',[
+            'phone' => $phone
+        ]);
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit(Phone $phone)
+    {
+        return view('admin.phone.edit',[
+            'phone' => $phone
+        ]);
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, Phone $phone)
+    {
+        $request->validate([
+            'title' => ['required', 'string'],
+            'price' => ['required','integer'],
+            'launch_status' => ['required', 'integer'],
+            'screen_size' => ['required', 'regex:/^\d+(\.\d{1,2})?$/'],
+            'screen_resolution' => ['required', 'string'],
+            'ram' => ['required', 'integer'],
+            'memory' => ['required', 'integer'],
+            'main_camera' => ['required', 'string'],
+            'front_camera' => ['required', 'string'],
+            'battery' => ['required', 'integer'],
+            'sim_card_quantity' => ['required', 'integer'],
+            'os' => ['required','string'],
+        ]);
+
+        $inputs = $request->all();
+        unset($inputs['_token']);
+        if (session('phone_picture')) {
+            $inputs['picture'] = session('phone_picture');    
+        }else{
+            $inputs['picture'] = $phone->picture;
+        }
+        
+        $phone->update($inputs);
+
+        return redirect()->back();
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy(Phone $phone)
+    {
+        $phone = Phone::findOrFail($phone->id);
+        $phone->delete();
+        return redirect('/phones');
+    }
+}

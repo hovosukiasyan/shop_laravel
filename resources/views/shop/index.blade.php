@@ -11,7 +11,7 @@
             @foreach($products as $product)
                 <div class="col-xs-18 col-sm-6 col-md-3">
                     <div class="thumbnail">
-                        <img src="{{ asset('/uploads/products') . '/' .$product->picture }}" alt="{{$product->title }}" width="200" height="200">
+                        <img src="{{ asset('/uploads/products') . '/' .$product->picture }}" alt="{{$product->title }}" width="200" height="250">
                         <div class="caption">
                             <h4>{{ $product->name }}</h4>
                             <p><strong>Price: </strong> {{ $product->price }}$</p>
