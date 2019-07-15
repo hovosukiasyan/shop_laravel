@@ -40,7 +40,7 @@ $.ajaxSetup({
       size: 'viewport'
     }).then(function (img) {
       $.ajax({
-        url: "/products/crop",
+        url: "/crop",
         type: "POST",
         data: {"picture":img},
         success: function (data) {

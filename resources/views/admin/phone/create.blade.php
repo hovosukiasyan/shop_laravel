@@ -199,7 +199,7 @@
                         <strong>Select image to crop:</strong>
                         <input type="file" id="picture">
 
-                        <button class="btn btn-primary btn-block upload-phone-image" style="margin-top:2%">
+                        <button class="btn btn-primary btn-block upload-image" style="margin-top:2%">
                             Upload Image
                         </button>
                     </div>

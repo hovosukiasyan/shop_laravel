@@ -40,19 +40,6 @@ class PhoneController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function crop(Request $request)
-    {
-        $picture = $request->picture;
-        
-        list($type, $picture) = explode(';', $picture);
-        list(, $picture)      = explode(',', $picture);
-        $picture = base64_decode($picture);
-        $picture_name= time().'.png';
-        $path = public_path('/uploads/phones/'.$picture_name);
-        file_put_contents($path, $picture);
-
-        $request->session()->put('phone_picture',$picture_name );
-    }
 
     public function store(Request $request)
     {
@@ -75,7 +62,6 @@ class PhoneController extends Controller
 
         unset($inputs['_token']);
         $inputs['picture'] = session('phone_picture');
-        // dd($inputs);
         $phone = Phone::create($inputs);
 
         return redirect('/phones/');

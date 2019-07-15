@@ -14,20 +14,6 @@ class ProductController extends Controller
         return view('admin.product.create');
     }
 
-    public function crop(Request $request)
-    {
-        $picture = $request->picture;
-        
-        list($type, $picture) = explode(';', $picture);
-        list(, $picture)      = explode(',', $picture);
-        $picture = base64_decode($picture);
-        $picture_name= time().'.png';
-        $path = public_path('uploads/products/'.$picture_name);
-        file_put_contents($path, $picture);
-
-        $request->session()->put('product_picture',$picture_name );
-    }
-
     public function store(Request $request)
     {
         $request->validate([
