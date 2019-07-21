@@ -47,7 +47,6 @@ Route::group(['middleware' => ['admin']], function(){
     //Products
     Route::get('/products/create', 'ProductController@create');
     Route::post('/products/', 'ProductController@store');
-    // Route::post('/products/crop', 'ProductController@crop');
     Route::get('/products','ProductController@allProducts');
     Route::get('/products/edit/{product}','ProductController@edit');
     Route::get('/products/show/{product}','ProductController@show');
@@ -57,7 +56,6 @@ Route::group(['middleware' => ['admin']], function(){
 
     //Phone
 
-    // Route::post('/phones/crop', 'PhoneController@crop');
     Route::resource('phones', 'PhoneController');
     
 

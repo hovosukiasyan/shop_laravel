@@ -3,6 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Notebook;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
+
 
 class NotebookController extends Controller
 {
@@ -13,7 +17,10 @@ class NotebookController extends Controller
      */
     public function index()
     {
-        //
+        $notebooks = Notebook::all();
+        return view('admin.notebook.notebooks',[
+            'notebooks' => $notebooks,
+        ]);
     }
 
     /**
@@ -23,7 +30,7 @@ class NotebookController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.notebook.create');
     }
 
     /**
@@ -32,9 +39,30 @@ class NotebookController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+
+
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'title' => ['required', 'string'],
+            'price' => ['required','integer'],
+            'screen_size' => ['required', 'regex:/^\d+(\.\d{1,2})?$/'],
+            'screen_resolution' => ['required', 'string'],
+            'cpu' => ['required', 'string'],
+            'ram' => ['required', 'string'],
+            'hard_drive' => ['required', 'string'],
+            'graphic_card' => ['required', 'string'],
+            'touch_screen' => ['required', 'string'],
+            'os' => ['required','string'],
+        ]);
+
+        $inputs = $request->all();
+
+        unset($inputs['_token']);
+        $inputs['picture'] = session('notebook_picture');
+        $notebook = Notebook::create($inputs);
+
+        return redirect('/notebooks/');
     }
 
     /**
@@ -43,9 +71,11 @@ class NotebookController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Notebook $notebook)
     {
-        //
+        return view('admin.notebook.show',[
+            'notebook' => $notebook
+        ]);
     }
 
     /**
@@ -54,9 +84,11 @@ class NotebookController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Notebook $notebook)
     {
-        //
+        return view('admin.notebook.edit',[
+            'notebook' => $notebook
+        ]);
     }
 
     /**
@@ -66,9 +98,32 @@ class NotebookController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Notebook $notebook)
     {
-        //
+        $request->validate([
+            'title' => ['required', 'string'],
+            'price' => ['required','integer'],
+            'screen_size' => ['required', 'regex:/^\d+(\.\d{1,2})?$/'],
+            'screen_resolution' => ['required', 'string'],
+            'cpu' => ['required', 'string'],
+            'ram' => ['required', 'string'],
+            'hard_drive' => ['required', 'string'],
+            'graphic_card' => ['required', 'string'],
+            'touch_screen' => ['required', 'string'],
+            'os' => ['required','string'],
+        ]);
+
+        $inputs = $request->all();
+        unset($inputs['_token']);
+        if (session('notebook_picture')) {
+            $inputs['picture'] = session('notebook_picture');    
+        }else{
+            $inputs['picture'] = $notebook->picture;
+        }
+        
+        $notebook->update($inputs);
+
+        return redirect()->back();
     }
 
     /**
@@ -77,8 +132,10 @@ class NotebookController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Notebook $notebook)
     {
-        //
+        $notebook = Notebook::findOrFail($notebook->id);
+        $notebook->delete();
+        return redirect('/notebooks');
     }
 }

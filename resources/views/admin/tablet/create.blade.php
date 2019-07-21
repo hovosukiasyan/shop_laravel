@@ -2,18 +2,17 @@
 
 @section('content')
 <div class="wrapper">
-    <h1 class="title">Edit Phone</h1>
-    <form method="POST" action="/phones/{{ $phone->id }}" enctype="multipart/form-data">
+    <h1 class="title">Create Tablet</h1>
+    <form method="POST" action="/tablets/" enctype="multipart/form-data">
 
         @csrf
-        @method('PATCH')
 
         <div class="form-group row">
             <label for="title" class="col-md-4 col-form-label text-md-right">{{ __('Title') }}</label>
 
             <div class="col-md-6">
                 <input id="title" type="text" class="form-control{{ $errors->has('title') ? ' is-invalid' : '' }}"
-                    name="title" value="{{ $phone->title }}" autofocus>
+                    name="title" value="" autofocus>
 
                 @if ($errors->has('title'))
                 <span class="invalid-feedback" role="alert">
@@ -28,11 +27,11 @@
 
             <div class="col-md-6">
                 <input id="price" type="text" class="form-control{{ $errors->has('price') ? ' is-invalid' : '' }}"
-                    name="price" value="{{ $phone->price }}" autofocus>
+                    name="price" value="" autofocus>
 
                 @if ($errors->has('price'))
                 <span class="invalid-feedback" role="alert">
-                    <strong>{{ $errors->first('price') }}</strong>
+                    <strong>{{ $errors->first('description') }}</strong>
                 </span>
                 @endif
             </div>
@@ -43,7 +42,7 @@
 
             <div class="col-md-6">
                 <input id="launch_status" type="text" class="form-control{{ $errors->has('launch_status') ? ' is-invalid' : '' }}"
-                    name="launch_status" value="{{ $phone->launch_status }}" autofocus>
+                    name="launch_status" value="" autofocus>
 
                 @if ($errors->has('launch_status'))
                 <span class="invalid-feedback" role="alert">
@@ -58,7 +57,7 @@
 
             <div class="col-md-6">
                 <input id="screen_size" type="text" class="form-control{{ $errors->has('screen_size') ? ' is-invalid' : '' }}"
-                    name="screen_size" value="{{ $phone->screen_size }}" autofocus>
+                    name="screen_size" value="" autofocus>
 
                 @if ($errors->has('screen_size'))
                 <span class="invalid-feedback" role="alert">
@@ -73,7 +72,7 @@
 
             <div class="col-md-6">
                 <input id="screen_resolution" type="text" class="form-control{{ $errors->has('screen_resolution') ? ' is-invalid' : '' }}"
-                    name="screen_resolution" value="{{ $phone->screen_resolution }}" autofocus>
+                    name="screen_resolution" value="" autofocus>
 
                 @if ($errors->has('screen_resolution'))
                 <span class="invalid-feedback" role="alert">
@@ -88,7 +87,7 @@
 
             <div class="col-md-6">
                 <input id="ram" type="text" class="form-control{{ $errors->has('ram') ? ' is-invalid' : '' }}"
-                    name="ram" value="{{ $phone->ram }}" autofocus>
+                    name="ram" value="" autofocus>
 
                 @if ($errors->has('ram'))
                 <span class="invalid-feedback" role="alert">
@@ -103,7 +102,7 @@
 
             <div class="col-md-6">
                 <input id="memory" type="text" class="form-control{{ $errors->has('memory') ? ' is-invalid' : '' }}"
-                    name="memory" value="{{ $phone->memory }}" autofocus>
+                    name="memory" value="" autofocus>
 
                 @if ($errors->has('memory'))
                 <span class="invalid-feedback" role="alert">
@@ -118,7 +117,7 @@
 
             <div class="col-md-6">
                 <input id="main_camera" type="text" class="form-control{{ $errors->has('main_camera') ? ' is-invalid' : '' }}"
-                    name="main_camera" value="{{ $phone->main_camera }}" autofocus>
+                    name="main_camera" value="" autofocus>
 
                 @if ($errors->has('main_camera'))
                 <span class="invalid-feedback" role="alert">
@@ -133,7 +132,7 @@
 
             <div class="col-md-6">
                 <input id="front_camera" type="text" class="form-control{{ $errors->has('front_camera') ? ' is-invalid' : '' }}"
-                    name="front_camera" value="{{ $phone->front_camera }}" autofocus>
+                    name="front_camera" value="" autofocus>
 
                 @if ($errors->has('front_camera'))
                 <span class="invalid-feedback" role="alert">
@@ -148,7 +147,7 @@
 
             <div class="col-md-6">
                 <input id="battery" type="text" class="form-control{{ $errors->has('battery') ? ' is-invalid' : '' }}"
-                    name="battery" value="{{ $phone->battery }}" autofocus>
+                    name="battery" value="" autofocus>
 
                 @if ($errors->has('battery'))
                 <span class="invalid-feedback" role="alert">
@@ -163,7 +162,7 @@
 
             <div class="col-md-6">
                 <input id="sim_card_quantity" type="text" class="form-control{{ $errors->has('sim_card_quantity') ? ' is-invalid' : '' }}"
-                    name="sim_card_quantity" value="{{ $phone->sim_card_quantity }}" autofocus>
+                    name="sim_card_quantity" value="" autofocus>
 
                 @if ($errors->has('sim_card_quantity'))
                 <span class="invalid-feedback" role="alert">
@@ -178,7 +177,7 @@
 
             <div class="col-md-6">
                 <input id="os" type="text" class="form-control{{ $errors->has('os') ? ' is-invalid' : '' }}"
-                    name="os" value="{{ $phone->os }}" autofocus>
+                    name="os" value="" autofocus>
 
                 @if ($errors->has('os'))
                 <span class="invalid-feedback" role="alert">
@@ -188,17 +187,8 @@
             </div>
         </div>
 
-
-        <div class="field">
-            <label class="label"">Current Image</label>
-            <div class="control">
-                <img src="{{ asset('/uploads/phones') . '/' .$phone->picture }}" alt="product">
-            </div>
-        </div>
-
-
         <div class="panel panel-info">
-            <div class="panel-heading">Upload and Crop Image of Phone</div>
+            <div class="panel-heading">Upload and Crop Image of tablet</div>
             <div class="panel-body">
 
                 <div class="row">
@@ -231,7 +221,7 @@
         <div class="form-group row mb-0">
             <div class="col-md-6 offset-md-4">
                 <button type="submit" class="btn btn-primary">
-                    {{ __('Update') }}
+                    {{ __('POST') }}
                 </button>
             </div>
         </div>

@@ -11,8 +11,7 @@
     </div>
 
     <div class="price">
-        <h2><b>Price</b> {!! $phone->price !!}$</h2>
-        
+        <h2><b>Price</b> {!! round(($phone->price)/485) !!}$</h2>
     </div>
 
     <div class="launch_status">

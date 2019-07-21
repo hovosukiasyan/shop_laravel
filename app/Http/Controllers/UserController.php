@@ -43,7 +43,7 @@ class UserController extends Controller
         
         
         if ($request->hasFile('picture')) {
-            $destinationPath = public_path('uploads\files ');
+            $destinationPath = public_path('uploads\users ');
             $url = $request->file('picture')->getClientOriginalExtension();
             $filename = uniqid().'.'.$url;
             $request->file('picture')->move($destinationPath, $filename);

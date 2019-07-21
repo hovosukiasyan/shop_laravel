@@ -31,8 +31,8 @@ class AdminController extends Controller
         $picture = base64_decode($picture);
         $picture_name= time().'.png';
         $url = explode('/',url()->current());
-        
-        if ($url[3]="products") {
+
+        if ($url[3]=="products") {
             
             $path = public_path('/uploads/products/'.$picture_name);
             file_put_contents($path, $picture);
@@ -40,12 +40,26 @@ class AdminController extends Controller
             $request->session()->put('product_picture',$picture_name );            
         
         
-        }if ($url[3] = "phones") {
+        }elseif ($url[3] == "phones") {
             
             $path = public_path('/uploads/phones/'.$picture_name);
             file_put_contents($path, $picture);
     
             $request->session()->put('phone_picture',$picture_name );
+        
+        }elseif ($url[3] == "notebooks") {
+            
+            $path = public_path('/uploads/notebooks/'.$picture_name);
+            file_put_contents($path, $picture);
+    
+            $request->session()->put('notebook_picture',$picture_name );
+        
+        }elseif ($url[3] == "tablets") {
+            
+            $path = public_path('/uploads/tablets/'.$picture_name);
+            file_put_contents($path, $picture);
+    
+            $request->session()->put('tablet_picture',$picture_name );
         }
 
     }

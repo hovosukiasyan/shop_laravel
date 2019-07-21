@@ -3,6 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Tablet;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
+
 
 class TabletController extends Controller
 {
@@ -13,7 +17,10 @@ class TabletController extends Controller
      */
     public function index()
     {
-        //
+        $tablets = Tablet::all();
+        return view('admin.tablet.tablets',[
+            'tablets' => $tablets,
+        ]);
     }
 
     /**
@@ -23,7 +30,7 @@ class TabletController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.tablet.create');
     }
 
     /**
@@ -32,9 +39,32 @@ class TabletController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+
+
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'title' => ['required', 'string'],
+            'price' => ['required','integer'],
+            'launch_status' => ['required', 'integer'],
+            'screen_size' => ['required', 'regex:/^\d+(\.\d{1,2})?$/'],
+            'screen_resolution' => ['required', 'string'],
+            'ram' => ['required', 'integer'],
+            'memory' => ['required', 'integer'],
+            'main_camera' => ['required', 'string'],
+            'front_camera' => ['required', 'string'],
+            'battery' => ['required', 'integer'],
+            'sim_card_quantity' => ['required', 'integer'],
+            'os' => ['required','string'],
+        ]);
+
+        $inputs = $request->all();
+
+        unset($inputs['_token']);
+        $inputs['picture'] = session('tablet_picture');
+        $tablet = Tablet::create($inputs);
+
+        return redirect('/tablets/');
     }
 
     /**
@@ -43,9 +73,11 @@ class TabletController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Tablet $tablet)
     {
-        //
+        return view('admin.tablet.show',[
+            'tablet' => $tablet
+        ]);
     }
 
     /**
@@ -54,9 +86,11 @@ class TabletController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Tablet $tablet)
     {
-        //
+        return view('admin.tablet.edit',[
+            'tablet' => $tablet
+        ]);
     }
 
     /**
@@ -66,9 +100,34 @@ class TabletController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Tablet $tablet)
     {
-        //
+        $request->validate([
+            'title' => ['required', 'string'],
+            'price' => ['required','integer'],
+            'launch_status' => ['required', 'integer'],
+            'screen_size' => ['required', 'regex:/^\d+(\.\d{1,2})?$/'],
+            'screen_resolution' => ['required', 'string'],
+            'ram' => ['required', 'integer'],
+            'memory' => ['required', 'integer'],
+            'main_camera' => ['required', 'string'],
+            'front_camera' => ['required', 'string'],
+            'battery' => ['required', 'integer'],
+            'sim_card_quantity' => ['required', 'integer'],
+            'os' => ['required','string'],
+        ]);
+
+        $inputs = $request->all();
+        unset($inputs['_token']);
+        if (session('tablet_picture')) {
+            $inputs['picture'] = session('tablet_picture');    
+        }else{
+            $inputs['picture'] = $tablet->picture;
+        }
+        
+        $tablet->update($inputs);
+
+        return redirect()->back();
     }
 
     /**
@@ -77,8 +136,10 @@ class TabletController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Tablet $tablet)
     {
-        //
+        $tablet = Tablet::findOrFail($tablet->id);
+        $tablet->delete();
+        return redirect('/tablets');
     }
 }

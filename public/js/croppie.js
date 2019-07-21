@@ -9,8 +9,8 @@ $.ajaxSetup({
       enableExif: true,
       enableOrientation: true,    
       viewport: { // Default { width: 100, height: 100, type: 'square' } 
-          width: 200,
-          height: 200,
+          width: 250,
+          height: 250,
           type: 'square' //circle
       },
       boundary: {
