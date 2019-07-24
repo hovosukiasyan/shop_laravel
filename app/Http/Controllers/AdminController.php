@@ -25,14 +25,15 @@ class AdminController extends Controller
     public function crop(Request $request)
     {
         $picture = $request->picture;
-        
+        $product_type = $request->type;
+
         list($type, $picture) = explode(';', $picture);
         list(, $picture)      = explode(',', $picture);
         $picture = base64_decode($picture);
         $picture_name= time().'.png';
         $url = explode('/',url()->current());
 
-        if ($url[3]=="products") {
+        if ($product_type=="product") {
             
             $path = public_path('/uploads/products/'.$picture_name);
             file_put_contents($path, $picture);
@@ -40,21 +41,21 @@ class AdminController extends Controller
             $request->session()->put('product_picture',$picture_name );            
         
         
-        }elseif ($url[3] == "phones") {
+        }elseif ($product_type == "phone") {
             
             $path = public_path('/uploads/phones/'.$picture_name);
             file_put_contents($path, $picture);
     
             $request->session()->put('phone_picture',$picture_name );
         
-        }elseif ($url[3] == "notebooks") {
+        }elseif ($product_type == "notebook") {
             
             $path = public_path('/uploads/notebooks/'.$picture_name);
             file_put_contents($path, $picture);
     
             $request->session()->put('notebook_picture',$picture_name );
         
-        }elseif ($url[3] == "tablets") {
+        }elseif ($product_type == "tablet") {
             
             $path = public_path('/uploads/tablets/'.$picture_name);
             file_put_contents($path, $picture);

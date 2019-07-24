@@ -18,7 +18,7 @@ $.ajaxSetup({
           height: 300
       }
   });
-  
+
   
   $('#picture').on('change', function () { 
     var reader = new FileReader();
@@ -35,6 +35,7 @@ $.ajaxSetup({
 
   $('.upload-image').on('click', function (ev) {
     ev.preventDefault();
+    var type = $("#type").val();
     resize.croppie('result', {
       type: 'canvas',
       size: 'viewport'
@@ -42,7 +43,7 @@ $.ajaxSetup({
       $.ajax({
         url: "/crop",
         type: "POST",
-        data: {"picture":img},
+        data: {"picture":img, type:type},
         success: function (data) {
           html = '<img src="' + img + '" />';
           $("#preview-crop-image").html(html);

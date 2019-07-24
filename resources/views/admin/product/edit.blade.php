@@ -8,6 +8,8 @@
 
         @method('PATCH')
         @csrf
+        <input id="type" name="type" type="hidden" value="product">
+
 
         <div class="field">
         

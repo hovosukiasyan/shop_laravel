@@ -6,6 +6,8 @@
     <form method="POST" action="/notebooks/" enctype="multipart/form-data">
 
         @csrf
+        <input id="type" name="type" type="hidden" value="notebook">
+
 
         <div class="form-group row">
             <label for="title" class="col-md-4 col-form-label text-md-right">{{ __('Title') }}</label>

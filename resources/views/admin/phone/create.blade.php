@@ -6,6 +6,7 @@
     <form method="POST" action="/phones/" enctype="multipart/form-data">
 
         @csrf
+        <input id="type" name="type" type="hidden" value="phone">
 
         <div class="form-group row">
             <label for="title" class="col-md-4 col-form-label text-md-right">{{ __('Title') }}</label>
