@@ -27,6 +27,14 @@
         </div>
 
         <div class="form-group row">
+            <label for="brand" class="col-md-4 col-form-label text-md-right">{{ __('Brand') }}</label>
+
+            <div class="col-md-6">
+                <input type="text" value="{{ $brand->first()->name }}" disabled>
+            </div>
+        </div>
+
+        <div class="form-group row">
             <label for="price" class="col-md-4 col-form-label text-md-right">{{ __('Price') }}</label>
 
             <div class="col-md-6">

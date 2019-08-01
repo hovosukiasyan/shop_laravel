@@ -3,8 +3,8 @@
 @section('content')
 <div class="wrapper">
     <div class="product">
-        <h1 class="title">All Phones</h1>
-        <a href='/tablets/create' class="btn btn-success create-button">Create tablet</a>
+        <h1 class="title">All Tablets</h1>
+        <a href='/tablets/create' class="btn btn-success create-button">Create Tablet</a>
             <?php
                 $count = count($tablets);
             ?>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Tablet;
+use App\Brand;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 
@@ -30,7 +31,10 @@ class TabletController extends Controller
      */
     public function create()
     {
-        return view('admin.tablet.create');
+        $brands = Brand::where('type',3)->get();
+        return view('admin.tablet.create',[
+            'brands' => $brands,
+        ]);
     }
 
     /**
@@ -45,6 +49,7 @@ class TabletController extends Controller
     {
         $request->validate([
             'title' => ['required', 'string'],
+            'brand_id' => ['required'],
             'price' => ['required','integer'],
             'launch_status' => ['required', 'integer'],
             'screen_size' => ['required', 'regex:/^\d+(\.\d{1,2})?$/'],
@@ -59,7 +64,7 @@ class TabletController extends Controller
         ]);
 
         $inputs = $request->all();
-
+        // dd($inputs)
         unset($inputs['_token']);
         $inputs['picture'] = session('tablet_picture');
         $tablet = Tablet::create($inputs);
@@ -88,8 +93,10 @@ class TabletController extends Controller
      */
     public function edit(Tablet $tablet)
     {
+        $brand = Brand::where('id', $tablet->brand_id)->get();
         return view('admin.tablet.edit',[
-            'tablet' => $tablet
+            'tablet' => $tablet,
+            'brand' => $brand
         ]);
     }
 
@@ -117,6 +124,8 @@ class TabletController extends Controller
             'os' => ['required','string'],
         ]);
 
+        $old_picture = public_path("uploads/tablets/" . $tablet->picture);
+
         $inputs = $request->all();
         unset($inputs['_token']);
         if (session('tablet_picture')) {
@@ -126,6 +135,7 @@ class TabletController extends Controller
         }
         
         $tablet->update($inputs);
+        unlink($old_picture);
 
         return redirect()->back();
     }

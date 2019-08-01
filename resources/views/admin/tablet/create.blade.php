@@ -25,6 +25,22 @@
         </div>
 
         <div class="form-group row">
+                <label for="brand" class="col-md-4 col-form-label text-md-right">{{ __('Brand') }}</label>
+    
+                <div class="col-md-6">
+                        @foreach ($brands as $brand)
+                            <input type="radio" name="brand_id" value="{{ $brand->id }}">{{$brand->name}}<br>
+                        @endforeach
+                        
+                    @if ($errors->has('brand'))
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $errors->first('brand') }}</strong>
+                    </span>
+                    @endif
+                </div>
+            </div>
+
+        <div class="form-group row">
             <label for="price" class="col-md-4 col-form-label text-md-right">{{ __('Price') }}</label>
 
             <div class="col-md-6">

@@ -70,6 +70,10 @@ Route::group(['middleware' => ['admin']], function(){
     Route::resource('tablets', 'TabletController');
 
 
+    //Brands
+
+    Route::resource('brands', 'BrandController');    
+
 
 
 

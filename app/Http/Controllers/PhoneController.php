@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Phone;
+use App\Brand;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 
@@ -30,7 +31,10 @@ class PhoneController extends Controller
      */
     public function create()
     {
-        return view('admin.phone.create');
+        $brands = Brand::where('type',1)->get();
+        return view('admin.phone.create',[
+            'brands' => $brands,
+        ]);
     }
 
     /**
@@ -45,6 +49,7 @@ class PhoneController extends Controller
     {
         $request->validate([
             'title' => ['required', 'string'],
+            'brand_id' => ['required'],
             'price' => ['required','integer'],
             'launch_status' => ['required', 'integer'],
             'screen_size' => ['required', 'regex:/^\d+(\.\d{1,2})?$/'],
@@ -88,8 +93,10 @@ class PhoneController extends Controller
      */
     public function edit(Phone $phone)
     {
+        $brand = Brand::where('id', $phone->brand_id)->get();
         return view('admin.phone.edit',[
-            'phone' => $phone
+            'phone' => $phone,
+            'brand' => $brand
         ]);
     }
 
@@ -117,6 +124,7 @@ class PhoneController extends Controller
             'os' => ['required','string'],
         ]);
 
+        $old_picture = public_path("uploads/phones/" . $phone->picture);
         $inputs = $request->all();
         unset($inputs['_token']);
         if (session('phone_picture')) {
@@ -126,6 +134,7 @@ class PhoneController extends Controller
         }
         
         $phone->update($inputs);
+        unlink($old_picture);
 
         return redirect()->back();
     }

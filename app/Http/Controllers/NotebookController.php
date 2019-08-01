@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Notebook;
+use App\Brand;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 
@@ -30,7 +31,10 @@ class NotebookController extends Controller
      */
     public function create()
     {
-        return view('admin.notebook.create');
+        $brands = Brand::where('type',2)->get();
+        return view('admin.notebook.create',[
+            'brands' => $brands,
+        ]);
     }
 
     /**
@@ -45,6 +49,7 @@ class NotebookController extends Controller
     {
         $request->validate([
             'title' => ['required', 'string'],
+            'brand_id' => ['required'],
             'price' => ['required','integer'],
             'screen_size' => ['required', 'regex:/^\d+(\.\d{1,2})?$/'],
             'screen_resolution' => ['required', 'string'],
@@ -86,8 +91,10 @@ class NotebookController extends Controller
      */
     public function edit(Notebook $notebook)
     {
+        $brand = Brand::where('id', $notebook->brand_id)->get();
         return view('admin.notebook.edit',[
-            'notebook' => $notebook
+            'notebook' => $notebook,
+            'brand' => $brand
         ]);
     }
 
@@ -113,6 +120,7 @@ class NotebookController extends Controller
             'os' => ['required','string'],
         ]);
 
+        $old_picture = public_path("uploads/notebooks/" . $notebook->picture);
         $inputs = $request->all();
         unset($inputs['_token']);
         if (session('notebook_picture')) {
@@ -122,6 +130,7 @@ class NotebookController extends Controller
         }
         
         $notebook->update($inputs);
+        unlink($old_picture);
 
         return redirect()->back();
     }

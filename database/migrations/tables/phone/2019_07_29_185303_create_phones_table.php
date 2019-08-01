@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateNotebooksTable extends Migration
+class CreatePhonesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,18 +13,21 @@ class CreateNotebooksTable extends Migration
      */
     public function up()
     {
-        Schema::create('notebooks', function (Blueprint $table) {
+        Schema::create('phones', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->tinyinteger('brand_id');
             $table->string('title');
 	        $table->string('picture');	
             $table->integer('price');
-            $table->string('screen_size');
+            $table->integer('launch_status');
+            $table->double('screen_size', 15, 8);
             $table->string('screen_resolution');
-            $table->string('cpu');
-            $table->string('ram');
-            $table->string('hard_drive');
-            $table->string('graphic_card');
-            $table->string('touch_screen');
+            $table->integer('ram');
+            $table->integer('memory');
+            $table->string('main_camera');
+            $table->string('front_camera');
+            $table->integer('battery');
+            $table->integer('sim_card_quantity');
             $table->string('os');
             $table->timestamps();
         });
@@ -37,6 +40,6 @@ class CreateNotebooksTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('notebooks');
+        Schema::dropIfExists('phones');
     }
 }

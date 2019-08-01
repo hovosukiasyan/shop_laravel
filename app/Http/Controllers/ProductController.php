@@ -59,6 +59,7 @@ class ProductController extends Controller
             'price' => ['required','string', 'max:255']
         ]);
 
+        $old_picture = public_path("uploads/products/" . $product->picture);
         $inputs = $request->all();
         unset($inputs['_token']);
         if (session('product_picture')) {
@@ -68,6 +69,7 @@ class ProductController extends Controller
         }
         
         $product->update($inputs);
+        unlink($old_picture);
 
         return redirect()->back();
     }

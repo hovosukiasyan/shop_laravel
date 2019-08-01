@@ -60,6 +60,7 @@
                                 
                                 
                                 <a href='/admin-profile' class="link_push_left">Profile</a>
+                                <a href='/brands' class="link_push_left">Brands</a>
                                 <a href='/products' class="link_push_left">Products</a>
                                 <a href='/phones' class="link_push_left">Phones</a>
                                 <a href='/notebooks' class="link_push_left">Notebooks</a>
